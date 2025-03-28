@@ -7,12 +7,7 @@ import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import EditIcon from '@mui/icons-material/Edit';
 import StraightenIcon from '@mui/icons-material/Straighten';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
-
-export enum EInteractMode {
-  Draw,
-  MeasureLength,
-  MeasureAngle
-}
+import { EInteractMode } from "@/help/enums";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -39,7 +34,7 @@ export default function Home() {
       <Paper elevation={1} sx={{...getPaperProps(), width: "100%", height: "100%", overflow: "hidden"}}>
         <Stack sx={{width: "100%", height: "100%"}} direction="row" spacing={2}>
           <Box flex={1} sx={{width: "100%", height: "100%"}}>
-            <OpenLAyerMap color={color} interactMode={interactMode} messages={messages} setMessages={setMessages} />
+            <OpenLAyerMap color={color} interactMode={interactMode} setMessages={setMessages} />
           </Box>
           <Stack direction="column" sx={{maxWidth: 600}} flex={1} spacing={1} >
             <Stack direction="row-reverse">
@@ -78,8 +73,14 @@ export default function Home() {
              {
               messages.map((message, index) => {
                 return (
-                  <Typography key={index} variant="body1">
-                    {message}
+                  <Typography key={index} variant="body1" sx={{ whiteSpace: "pre" }}>
+                    {
+                      message.split("\n").map((line) => {
+                        return (
+                          <>{line}<br /></>
+                        )
+                      })
+                    }
                   </Typography>
                 )
               })
